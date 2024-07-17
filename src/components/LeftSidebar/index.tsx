@@ -15,6 +15,30 @@ import {
 
 export default function LeftSidebar() {
   const [expanded, setExpanded] = useState(false);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+
+  const truncateWalletAddress = (address: string | null, maxLength: number = 10) => {
+    if (!address) return "";
+    if (address.length <= maxLength) return address;
+    return address.slice(0, maxLength) + "..." + address.slice(-3);
+  };
+
+  useEffect(() => {
+    const checkIfWalletIsConnected = async () => {
+      try {
+        const { solana } = window;
+        if (solana && solana.isPhantom) {
+          const response = await solana.connect({ onlyIfTrusted: true });
+          setWalletAddress(response.publicKey.toString());
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    checkIfWalletIsConnected();
+  }, []);
+
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -108,7 +132,7 @@ export default function LeftSidebar() {
             <div className="flex items-center justify-between px-4 py-4 border border-gray-200 rounded-sm">
               <div className="flex gap-3 text-xl font-normal">
                 <img src="/assets/IBTC.png" alt="" className="size-[30px]" />
-                "WALLET ADDRESS"
+                {truncateWalletAddress(walletAddress)}
               </div>
               <ChevronUp size={18} className="text-gray-400" />
             </div>

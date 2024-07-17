@@ -1,6 +1,7 @@
 import { Star, ChevronDown, ChevronUp } from "lucide-react";
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
+import PerformanceChart from "./components/Perfor";
 
 function App() {
   return (
@@ -127,11 +128,7 @@ function App() {
                   <div className="flex gap-x-6">
                     <div className="flex flex-col  bg-[#f3f3f3] max-w-[1200px] p-5">
                       <h4 className="my-5 text-xl font-medium">Performance</h4>
-                      <img
-                        src="/assets/trandingview-img.png"
-                        alt=""
-                        className="aspect-video w-[800px] max-w-[1200px] max-h-[700px]"
-                      />
+                      <PerformanceChart/>
                     </div>
 
                     <div className="flex flex-col  bg-[#f3f3f3] w-full max-w-[400px] p-5">
